@@ -6,20 +6,13 @@ import 'package:flutter/material.dart';
 
 class PlayerCard extends StatelessWidget {
   Player player;
-  bool isSelected;
   Random rnd = new Random();
 
-  PlayerCard(this.isSelected, this.player);
+  PlayerCard(this.player);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: isSelected ? Colors.amber : Colors.transparent,
-              width: 1.3),
-          borderRadius: BorderRadius.all(Radius.circular(3)),
-        ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(2)),

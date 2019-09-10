@@ -14,7 +14,8 @@ class TeamPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
         child: Column(
           children: <Widget>[
-            Expanded(child: Bench(isEdit: true,)),
+            //todo change this
+            Expanded(child: FirebaseBench()),
             FlatButton(
                 onPressed: () {
                   //clear navigation stack

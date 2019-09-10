@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       home: Material(
-        child: TeamPage()
+        child: GamePage()
       ),
       routes: <String, WidgetBuilder> {
         '/team' : (BuildContext context) => new TeamPage(),

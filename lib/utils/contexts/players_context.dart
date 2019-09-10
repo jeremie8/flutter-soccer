@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quick_lineup/utils/mocks/mock_players.dart';
 import 'package:quick_lineup/utils/models/player.dart';
@@ -9,8 +11,14 @@ class PlayersContext extends StatefulWidget {
 
   PlayersContext({@required this.child, this.players}) {
     if (players == null) {
-      players = MockPlayers.dummySnapshot.map((data) => Player.fromMap(data)).toList();
-      //players = Firestore.instance.collection('players').snapshots()
+      /*players = new List<Player>();
+      Firestore.instance
+          .collection('players')
+          .snapshots()
+          .listen((data) =>
+          data.documents.forEach((doc) => players.add(Player.fromSnapshot(doc))));*/
+      players = MockPlayers.dummySnapshot.map((x) => Player.fromMap(x)).toList();
+      
     }
   }
 
@@ -25,22 +33,51 @@ class PlayersContext extends StatefulWidget {
 }
 
 class PlayersContextState extends State<PlayersContext> {
+
   List<Player> players;
+
+  List<Player> _playersOnGame;
+  List<Player> _playersOnBench;
+  List<Player> _unavailablePlayers;
+
+  List<Player> getAllPlayers(){
+    /*return Firestore.instance
+        .collection('players')
+        .snapshots().listen();*/
+    return players;
+  }
+
+  List<Player> getPlayersOnGame(int numberOfPlayers){
+    return _playersOnGame;
+  }
+
+  List<Player> getPlayersOnBench(){
+    return _playersOnBench;
+  }
 
   void rotate(numberOfPlayersRotating) {
     if (numberOfPlayersRotating > 0) {
       setState(() {
         int startRange = 0;
         int endRange = numberOfPlayersRotating;
-        if (endRange > players.length) endRange = players.length;
-        var temp = players.getRange(startRange, endRange);
-        players.addAll(temp);
-        players.removeRange(startRange, endRange);
+
+        for(Player p in _playersOnGame)
+          _playersOnBench.add(p);
+
+        if (endRange > _playersOnBench.length) endRange = _playersOnBench.length;
+        var temp = _playersOnBench.getRange(startRange, endRange);
+
+        _playersOnGame = temp.toList();
+        _playersOnBench.removeRange(startRange, endRange);
       });
     }
   }
 
-  PlayersContextState(this.players);
+  PlayersContextState(this.players){
+    _playersOnBench = players;
+    _playersOnGame = new List<Player>();
+    _unavailablePlayers = new List<Player>();
+  }
 
   void addPlayer(Player player) {
     if (player != null) {

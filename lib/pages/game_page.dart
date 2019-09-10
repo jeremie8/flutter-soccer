@@ -1,6 +1,7 @@
 import 'package:quick_lineup/widgets/bench/bench.dart';
 import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_lineup/widgets/game/Field.dart';
 import 'package:quick_lineup/widgets/game/top_row.dart';
 
 class GamePage extends StatelessWidget {
@@ -20,12 +21,10 @@ class GamePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Image.asset("assets/field.png"),
+          Field(),
           TopRowWidget(),
           Expanded(
-              child: Bench(
-                isEdit: false,
-              )),
+              child: FirebaseBench()),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
