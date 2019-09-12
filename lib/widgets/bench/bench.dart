@@ -3,7 +3,7 @@ import 'package:quick_lineup/utils/models/player.dart';
 import 'package:quick_lineup/widgets/bench/player_card.dart';
 import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:quick_lineup/widgets/players/PlayerCards.dart';
+import 'package:quick_lineup/widgets/players/player_cards.dart';
 
 class FirebaseBench extends StatefulWidget {
   @override
@@ -51,7 +51,8 @@ class FirebaseBenchState extends State<FirebaseBench> {
         });*/
     return GridView.count(
         crossAxisCount: 4,
-        children: PlayerCards.getCards(PlayersContext.of(context).getPlayersOnBench()),
+        physics: NeverScrollableScrollPhysics(),
+        children: PlayerCards.getCards(PlayersContext.of(context).playersOnBench, true, context),
         mainAxisSpacing: 5.0,
         crossAxisSpacing: 5.0,
         childAspectRatio: 1.0 / 1.2); // itemWidth / itemHeight

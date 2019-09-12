@@ -1,8 +1,9 @@
 import 'package:quick_lineup/widgets/bench/bench.dart';
 import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:quick_lineup/widgets/game/Field.dart';
+import 'package:quick_lineup/widgets/game/field.dart';
 import 'package:quick_lineup/widgets/game/top_row.dart';
+import 'package:quick_lineup/widgets/game/unavailable_players.dart';
 
 class GamePage extends StatelessWidget {
   @override
@@ -10,6 +11,7 @@ class GamePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.grey2,
       //appBar: PreferredSize(child: Container(color: Colors.blue), preferredSize: Size.fromHeight(10.0)),
+
       body: _getGamePage(context),
     );
   }
@@ -25,17 +27,7 @@ class GamePage extends StatelessWidget {
           TopRowWidget(),
           Expanded(
               child: FirebaseBench()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/team');
-                },
-                child: Text("Edit team"),
-              )
-            ],
-          )
+          UnavailablePlayers()
         ],
       ),
     );

@@ -36,9 +36,10 @@ class PlayersContextState extends State<PlayersContext> {
 
   List<Player> players;
 
-  List<Player> _playersOnGame;
-  List<Player> _playersOnBench;
-  List<Player> _unavailablePlayers;
+  List<Player> playersOnGame;
+  List<Player> playersOnBench;
+  List<Player> unavailablePlayers;
+  List<Player> absentPlayers;
 
   List<Player> getAllPlayers(){
     /*return Firestore.instance
@@ -47,12 +48,24 @@ class PlayersContextState extends State<PlayersContext> {
     return players;
   }
 
-  List<Player> getPlayersOnGame(int numberOfPlayers){
-    return _playersOnGame;
+  void addPlayerOnGame(Player player){
+    setState(() {
+      playersOnBench.removeWhere((p) => p.id == player.id);
+
+      if(playersOnGame.where((p) => p.id == player.id).length == 0)
+        playersOnGame.add(player);
+    });
   }
 
-  List<Player> getPlayersOnBench(){
-    return _playersOnBench;
+  void addPlayerOnBench(Player player){
+    setState(() {
+      playersOnGame.removeWhere((p) => p.id == player.id);
+      unavailablePlayers.removeWhere((p) => p.id == player.id);
+      absentPlayers.removeWhere((p) => p.id == player.id);
+
+      if(playersOnBench.where((p) => p.id == player.id).length == 0)
+        playersOnBench.add(player);
+    });
   }
 
   void rotate(numberOfPlayersRotating) {
@@ -61,22 +74,23 @@ class PlayersContextState extends State<PlayersContext> {
         int startRange = 0;
         int endRange = numberOfPlayersRotating;
 
-        for(Player p in _playersOnGame)
-          _playersOnBench.add(p);
+        for(Player p in playersOnGame)
+          playersOnBench.add(p);
 
-        if (endRange > _playersOnBench.length) endRange = _playersOnBench.length;
-        var temp = _playersOnBench.getRange(startRange, endRange);
+        if (endRange > playersOnBench.length) endRange = playersOnBench.length;
+        var temp = playersOnBench.getRange(startRange, endRange);
 
-        _playersOnGame = temp.toList();
-        _playersOnBench.removeRange(startRange, endRange);
+        playersOnGame = temp.toList();
+        playersOnBench.removeRange(startRange, endRange);
       });
     }
   }
 
   PlayersContextState(this.players){
-    _playersOnBench = players;
-    _playersOnGame = new List<Player>();
-    _unavailablePlayers = new List<Player>();
+    playersOnBench = players;
+    playersOnGame = new List<Player>();
+    unavailablePlayers = new List<Player>();
+    absentPlayers = new List<Player>();
   }
 
   void addPlayer(Player player) {

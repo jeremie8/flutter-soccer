@@ -13,19 +13,18 @@ class PlayerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(2)),
-            color: Colors.white70,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _getTopPart()),
-              _getBottomPart()
-            ],
-          ),
-        ));
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+        color: Colors.white70,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child: _getTopPart()),
+          _getBottomPart()
+        ],
+      ),
+    );
   }
 
   Widget _getTopPart() {
