@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quick_lineup/utils/consts/consts.dart';
 import 'package:quick_lineup/utils/mocks/mock_players.dart';
 import 'package:quick_lineup/utils/models/player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,6 +42,16 @@ class PlayersContextState extends State<PlayersContext> {
   List<Player> unavailablePlayers;
   List<Player> absentPlayers;
 
+
+  PlayersContextState(this.players){
+    playersOnBench = players;
+    playersOnGame = new List<Player>();
+    unavailablePlayers = new List<Player>();
+    absentPlayers = new List<Player>();
+
+    unavailablePlayers.add(new Player(name : "name", surname : "surname", number: 123, assetPath:Consts.PLAYER_ASSET_PATHS.first));
+  }
+
   List<Player> getAllPlayers(){
     /*return Firestore.instance
         .collection('players')
@@ -68,6 +79,26 @@ class PlayersContextState extends State<PlayersContext> {
     });
   }
 
+  void addUnavailablePlayer(Player player){
+    setState(() {
+      playersOnGame.removeWhere((p) => p.id == player.id);
+      playersOnBench.removeWhere((p) => p.id == player.id);
+
+      if(unavailablePlayers.where((p) => p.id == player.id).length == 0)
+        unavailablePlayers.add(player);
+    });
+  }
+
+  void addAbsentPlayer(Player player){
+    setState(() {
+      playersOnGame.removeWhere((p) => p.id == player.id);
+      playersOnBench.removeWhere((p) => p.id == player.id);
+
+      if(absentPlayers.where((p) => p.id == player.id).length == 0)
+        absentPlayers.add(player);
+    });
+  }
+
   void rotate(numberOfPlayersRotating) {
     if (numberOfPlayersRotating > 0) {
       setState(() {
@@ -86,12 +117,7 @@ class PlayersContextState extends State<PlayersContext> {
     }
   }
 
-  PlayersContextState(this.players){
-    playersOnBench = players;
-    playersOnGame = new List<Player>();
-    unavailablePlayers = new List<Player>();
-    absentPlayers = new List<Player>();
-  }
+
 
   void addPlayer(Player player) {
     if (player != null) {

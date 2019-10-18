@@ -15,12 +15,32 @@ class FirebaseBenchState extends State<FirebaseBench> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: CustomColors.grey1,
-            borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        padding: EdgeInsets.all(7.0),
-        child: _getBench());
+    return DragTarget<Player>(
+      onWillAccept: (data) => !PlayersContext.of(context).playersOnBench.contains(data),
+      onAccept: (player) => PlayersContext.of(context).addPlayerOnBench(player),
+      builder: (context, candidateData, rejected) {
+        return Container(
+            decoration: BoxDecoration(
+                color: CustomColors.grey1,
+                borderRadius: BorderRadius.all(Radius.circular(5.0))),
+            padding: EdgeInsets.all(7.0),
+            child: candidateData.isEmpty
+                ? _getBench()
+                : _getDraggedOverBench());
+      },
+    );
+  }
+
+  Widget _getDraggedOverBench(){
+    return Stack(
+      fit: StackFit.expand,
+      children:[
+        _getBenchGridView(),
+        Container(
+          decoration: BoxDecoration(color: CustomColors.hoverColor),
+        )
+      ],
+    );
   }
 
   Widget _getBench() {

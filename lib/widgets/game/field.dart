@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:quick_lineup/utils/contexts/options_context.dart';
 import 'package:quick_lineup/utils/contexts/players_context.dart';
 import 'package:quick_lineup/utils/models/player.dart';
@@ -16,7 +17,8 @@ class FieldState extends State<Field> {
   @override
   Widget build(BuildContext context) {
     return DragTarget<Player>(
-      onWillAccept: (data) => !PlayersContext.of(context).playersOnGame.contains(data),
+      onWillAccept: (data) =>
+          !PlayersContext.of(context).playersOnGame.contains(data),
       onAccept: (player) => PlayersContext.of(context).addPlayerOnGame(player),
       builder: (context, candidateData, rejected) {
         return Container(
@@ -36,6 +38,7 @@ class FieldState extends State<Field> {
   }
 
   Widget _getPlayersOnGame() {
+    int nbPlayersOnField = PlayersContext.of(context).playersOnGame.length;
     return Positioned(
         top: verticalPadding,
         bottom: verticalPadding,
@@ -43,19 +46,11 @@ class FieldState extends State<Field> {
         left: horizontalPadding,
         child: GridView.count(
             physics: NeverScrollableScrollPhysics(),
-            crossAxisCount:
-                OptionsContext.of(context).options.nbPlayersOnField <= 2
-                    ? 2
-                    : OptionsContext.of(context).options.nbPlayersOnField <= 6
-                        ? 3
-                        : OptionsContext.of(context).options.nbPlayersOnField <=
-                                8
-                            ? 4
-                            : 5,
+            crossAxisCount: nbPlayersOnField <= 2
+                ? 2
+                : nbPlayersOnField <= 6 ? 3 : nbPlayersOnField <= 8 ? 4 : 5,
             children: PlayerCards.getCards(
-                PlayersContext.of(context).playersOnGame,
-                true,
-                context),
+                PlayersContext.of(context).playersOnGame, true, context),
             mainAxisSpacing: 5.0,
             crossAxisSpacing: 5.0,
             childAspectRatio: 1.0 / 1.2) // itemWidth / itemHeight
@@ -68,7 +63,8 @@ class FieldState extends State<Field> {
       children: <Widget>[
         _getFieldImage(),
         _getPlayersOnGame(),
-        Container(decoration: BoxDecoration(color: Color(0xaaaef5ae)))
+        Container(
+            decoration: BoxDecoration(color: CustomColors.hoverColor))
       ],
     );
   }
