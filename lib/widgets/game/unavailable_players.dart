@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:quick_lineup/utils/contexts/players_context.dart';
 import 'package:quick_lineup/utils/models/player.dart';
-import 'package:quick_lineup/widgets/bench/players_popup_builder.dart';
+import 'package:quick_lineup/widgets/bench/unavailable_players_dialog.dart';
 import 'package:quick_lineup/widgets/players/player_cards.dart';
 
 class UnavailablePlayers extends StatefulWidget {
@@ -48,7 +48,7 @@ class UnavailablePlayersState extends State<UnavailablePlayers> {
           showDialog(
               context: context,
               builder: (context) {
-                return PlayersPopupBuilder(
+                return UnavailablePlayersDialog(
                     PlayersContext.of(context).unavailablePlayers);
               })
         },
@@ -72,7 +72,7 @@ class UnavailablePlayersState extends State<UnavailablePlayers> {
           showDialog(
               context: context,
               builder: (context) {
-                return PlayersPopupBuilder(
+                return UnavailablePlayersDialog(
                     PlayersContext.of(context).absentPlayers);
               })
         },

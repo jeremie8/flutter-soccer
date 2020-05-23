@@ -10,9 +10,7 @@ class OptionsContext extends StatefulWidget {
   }
 
   static OptionsContextState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_InheritedOptionsContext)
-    as _InheritedOptionsContext)
-        .data;
+    return context.dependOnInheritedWidgetOfExactType<_InheritedOptionsContext>().data;
   }
 
   @override
@@ -32,30 +30,26 @@ class OptionsContextState extends State<OptionsContext> {
     );
   }
 
-  void setNbPlayersOnField(int nbPlayers){
+  void setNbPlayersOnField(int nbPlayers) {
     options.nbPlayersOnField = nbPlayers;
-    setState(() {
-    });
+    setState(() {});
   }
 
-  void changeNbSecondsPerChange(int nbSeconds){
+  void changeNbSecondsPerChange(int nbSeconds) {
     int nbMinutes = options.nbSecondsPerChange ~/ 60;
     options.nbSecondsPerChange = nbSeconds + nbMinutes * 60;
-    setState(() {
-    });
+    setState(() {});
   }
 
-  void changeNbMinutesPerChange(int nbMinutes){
+  void changeNbMinutesPerChange(int nbMinutes) {
     int nbSeconds = options.nbSecondsPerChange % 60;
     options.nbSecondsPerChange = nbSeconds + nbMinutes * 60;
-    setState(() {
-    });
+    setState(() {});
   }
 
-  void setTimeChange(int timeChange){
+  void setTimeChange(int timeChange) {
     options.timeChange.setContentBase(timeChange);
-    setState(() {
-    });
+    setState(() {});
   }
 }
 

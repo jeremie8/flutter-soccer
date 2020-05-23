@@ -1,6 +1,5 @@
 import 'package:quick_lineup/utils/contexts/players_context.dart';
 import 'package:quick_lineup/utils/models/player.dart';
-import 'package:quick_lineup/widgets/bench/player_card.dart';
 import 'package:quick_lineup/utils/consts/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_lineup/widgets/players/player_cards.dart';

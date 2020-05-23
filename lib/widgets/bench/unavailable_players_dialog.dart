@@ -4,23 +4,22 @@ import 'package:quick_lineup/utils/contexts/players_context.dart';
 import 'package:quick_lineup/utils/models/player.dart';
 import 'package:quick_lineup/widgets/players/player_cards.dart';
 
+class UnavailablePlayersDialog extends StatefulWidget {
 
-class PlayersPopupBuilder extends StatefulWidget {
-
-  List<Player> players;
-  PlayersPopupBuilder(this.players);
+  final List<Player> players;
+  UnavailablePlayersDialog(this.players);
 
   @override
-  State<StatefulWidget> createState() => PlayersPopupState(players);
+  State<StatefulWidget> createState() => UnavailablePlayersDialogState(players);
 }
 
-class PlayersPopupState extends State<PlayersPopupBuilder>{
+class UnavailablePlayersDialogState extends State<UnavailablePlayersDialog>{
 
   List<Player> players;
   List<Player> _playersToAddToBench;
   List<Player> _playersToShow;
 
-  PlayersPopupState(this.players){
+  UnavailablePlayersDialogState(this.players){
     _playersToAddToBench = new List<Player>();
     _playersToShow = new List<Player>();
     for(Player p in players)

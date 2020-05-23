@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:quick_lineup/utils/consts/consts.dart';
 import 'package:quick_lineup/utils/mocks/mock_players.dart';
 import 'package:quick_lineup/utils/models/player.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PlayersContext extends StatefulWidget {
   final Widget child;
@@ -24,9 +21,7 @@ class PlayersContext extends StatefulWidget {
   }
 
   static PlayersContextState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_InheritedPlayersContext)
-            as _InheritedPlayersContext)
-        .data;
+    return context.dependOnInheritedWidgetOfExactType<_InheritedPlayersContext>().data;
   }
 
   @override
@@ -49,7 +44,7 @@ class PlayersContextState extends State<PlayersContext> {
     unavailablePlayers = new List<Player>();
     absentPlayers = new List<Player>();
 
-    unavailablePlayers.add(new Player(name : "name", surname : "surname", number: 123, assetPath:Consts.PLAYER_ASSET_PATHS.first));
+    unavailablePlayers.add(new Player(name : "Pierre-Bertrand Jérémie", surname : "surname", number: 123, assetPath:Consts.PLAYER_ASSET_PATHS.first));
   }
 
   List<Player> getAllPlayers(){

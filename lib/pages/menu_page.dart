@@ -11,13 +11,30 @@ class MenuPage extends StatelessWidget{
         color: CustomColors.grey2,
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              child: FlatButton(
+                color: Colors.lightBlueAccent,
+                  onPressed: () {
+                    //clear navigation stack
+                    Navigator.of(context).pushNamed('/game');
+                  }, child: Text("Démarrer une partie")),
+            ),
             FlatButton(
+                color: Colors.lightBlueAccent,
                 onPressed: () {
                   //clear navigation stack
-                  Navigator.of(context).pushNamedAndRemoveUntil('/game', (Route<dynamic> route) => false);
-                }, child: Text("Démarrer une partie"))
+                  Navigator.of(context).pushNamed('/options');
+                }, child: Text("Options")),
+            FlatButton(
+                color: Colors.lightBlueAccent,
+                onPressed: () {
+                  //clear navigation stack
+                  Navigator.of(context).pushNamed('/team');
+                }, child: Text("Team")),
           ],
         ),
       ),

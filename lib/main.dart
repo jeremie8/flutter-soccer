@@ -1,6 +1,7 @@
 import 'package:quick_lineup/pages/game_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quick_lineup/pages/menu_page.dart';
 import 'package:quick_lineup/pages/options_page.dart';
 import 'package:quick_lineup/pages/team_page.dart';
 import 'package:quick_lineup/utils/contexts/options_context.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       home: Material(
-        child: GamePage()
+        child: MenuPage()
       ),
       routes: <String, WidgetBuilder> {
         '/team' : (BuildContext context) => new TeamPage(),
